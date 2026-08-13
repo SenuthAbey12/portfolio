@@ -50,7 +50,7 @@ const PROJECTS: Project[] = [
     subtitle: 'Java Desktop Reservation Application',
     period: '2025',
     desc: 'Java Swing application for show scheduling, visual seat selection, bookings, and ticket generation.',
-    image: null,
+    image: './movie.png',
     tags: ['Java', 'Swing', 'OOP', 'Multithreading', 'Synchronization', 'Serialization'],
     github: 'https://github.com/SenuthAbey12',
     color: 'var(--teal)',

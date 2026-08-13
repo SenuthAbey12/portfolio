@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from 'react'
-import { CheckCircle, MapPin, Send } from 'lucide-react'
-import { SiGithub } from 'react-icons/si'
+import { CheckCircle, MapPin, Phone, Send } from 'lucide-react'
+import { SiGithub, SiWhatsapp } from 'react-icons/si'
 import SectionHeader from './SectionHeader'
 
 export default function Contact() {
@@ -111,6 +111,22 @@ export default function Contact() {
                   rgb: '99,102,241',
                 },
                 {
+                  icon: <Phone size={19} />,
+                  label: 'Contact Number',
+                  value: '071 557 4466',
+                  href: 'tel:+94715574466',
+                  color: 'var(--teal)',
+                  rgb: '6,182,212',
+                },
+                {
+                  icon: <SiWhatsapp size={19} />,
+                  label: 'WhatsApp',
+                  value: '074 155 0112',
+                  href: 'https://wa.me/94741550112',
+                  color: 'var(--green)',
+                  rgb: '16,185,129',
+                },
+                {
                   icon: <MapPin size={19} />,
                   label: 'Location',
                   value: 'Moratuwa, Sri Lanka',
@@ -122,7 +138,7 @@ export default function Contact() {
                 <div key={item.label} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
                   padding: '0.9rem 0',
-                  borderBottom: index === 0 ? '1px solid var(--border-subtle)' : 'none',
+                  borderBottom: index < 3 ? '1px solid var(--border-subtle)' : 'none',
                 }}>
                   <div style={{
                     width: 42, height: 42, borderRadius: 11, flexShrink: 0,

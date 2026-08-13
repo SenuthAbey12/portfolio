@@ -1,9 +1,20 @@
 "use client"
 
-import { Award, Bot, Calendar, Code2, GraduationCap, MapPin } from 'lucide-react'
+import { Award, Bot, Calendar, Code2, ExternalLink, GraduationCap, MapPin } from 'lucide-react'
 import SectionHeader from './SectionHeader'
 
 const CREDENTIALS = [
+  {
+    title: 'AWS Academy Graduate — Microservices & CI/CD Pipeline Builder',
+    org: 'AWS Academy',
+    date: 'March 2026',
+    location: 'Online',
+    description: 'Completed 12 hours of AWS Academy training in microservices architecture and CI/CD pipeline development.',
+    highlights: [],
+    icon: null,
+    color: '#f59e0b',
+    image: '/aws.jpeg',
+  },
   {
     title: 'Information & Technology Diploma',
     org: 'ICBT Campus',
@@ -13,6 +24,7 @@ const CREDENTIALS = [
     highlights: [],
     icon: <GraduationCap size={30} />,
     color: 'var(--primary)',
+    image: './icbt.jpeg',
   },
   {
     title: 'Python for Beginners',
@@ -23,6 +35,7 @@ const CREDENTIALS = [
     highlights: [],
     icon: <Code2 size={30} />,
     color: 'var(--teal)',
+    image: './python.png',
   },
   {
     title: 'Competitive Programming & Hackathons',
@@ -37,6 +50,7 @@ const CREDENTIALS = [
     ],
     icon: <Award size={30} />,
     color: 'var(--accent)',
+    image: './coderally.jpeg',
   },
   {
     title: 'Robotics Competitions',
@@ -51,6 +65,7 @@ const CREDENTIALS = [
     ],
     icon: <Bot size={30} />,
     color: 'var(--green)',
+    image: './mm.jpeg',
   },
 ]
 
@@ -62,7 +77,7 @@ export default function Certifications() {
           tag="credentials"
           title="Certificates &"
           highlight="Credentials"
-          subtitle="Technical education, programming competitions, and robotics achievements."
+          subtitle="Technical education, cloud training, programming competitions, and robotics achievements."
         />
 
         <div style={{
@@ -74,7 +89,7 @@ export default function Certifications() {
           {CREDENTIALS.map(credential => (
             <article
               key={credential.title}
-              className="glass"
+              className="glass credential-card"
               style={{
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',
@@ -90,23 +105,37 @@ export default function Certifications() {
                 e.currentTarget.style.boxShadow = 'none'
               }}
             >
-              <div style={{
-                height: 120,
-                position: 'relative', overflow: 'hidden',
-                background: `linear-gradient(135deg, ${credential.color}22, rgba(13,17,32,0.92))`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <div style={{
-                  width: 62, height: 62, borderRadius: 18,
-                  background: `${credential.color}18`,
-                  border: `1px solid ${credential.color}35`,
-                  color: credential.color,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: `0 8px 28px ${credential.color}18`,
+              {credential.image ? (
+                <a
+                  className="credential-certificate-preview"
+                  href={credential.image}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View ${credential.title} certificate`}
+                >
+                  <img
+                    src={credential.image}
+                    alt={`${credential.title} certificate`}
+                    loading="lazy"
+                  />
+                  <span><ExternalLink size={14} /> View certificate</span>
+                </a>
+              ) : (
+                <div className="credential-icon-panel" style={{
+                  background: `linear-gradient(135deg, color-mix(in srgb, ${credential.color} 14%, transparent), var(--bg-secondary))`,
                 }}>
-                  {credential.icon}
+                  <div style={{
+                    width: 62, height: 62, borderRadius: 18,
+                    background: `color-mix(in srgb, ${credential.color} 12%, transparent)`,
+                    border: `1px solid color-mix(in srgb, ${credential.color} 28%, transparent)`,
+                    color: credential.color,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: `0 8px 28px color-mix(in srgb, ${credential.color} 12%, transparent)`,
+                  }}>
+                    {credential.icon}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div style={{ padding: '1.4rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <h3 style={{

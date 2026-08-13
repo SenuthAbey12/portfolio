@@ -191,7 +191,7 @@ export default function Hero() {
               View Projects
             </button>
             <a
-              href="/resume.pdf" download
+              href="/resume.pdf" download="Senuth_Abeywardana_Resume.pdf"
               style={{
                 padding: '0.8rem 1.75rem',
                 borderRadius: 12,

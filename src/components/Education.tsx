@@ -1,6 +1,6 @@
 "use client"
 
-import { BookOpen, Calendar, GraduationCap, MapPin, Users } from 'lucide-react'
+import { Award, BookOpen, Calendar, GraduationCap, MapPin, Users } from 'lucide-react'
 import SectionHeader from './SectionHeader'
 
 const COURSES = [
@@ -10,6 +10,7 @@ const COURSES = [
   'Programming Languages',
   'Software Engineering',
   'Advanced Software Engineering',
+  'Software Engineering Project',
   'Database Systems',
   'Operating Systems',
   'Computer Networks',
@@ -28,7 +29,7 @@ const ACTIVITIES = [
 
 export default function Education() {
   return (
-    <section id="education" style={{
+    <section id="education" className="education-section" style={{
       padding: '6rem 0',
       background: 'linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%)',
     }}>
@@ -46,7 +47,7 @@ export default function Education() {
           gap: '2rem',
           alignItems: 'start',
         }}>
-          <article className="glass gradient-border" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem' }}>
+          <article className="glass gradient-border education-degree-card" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem' }}>
             <div style={{
               width: 64, height: 64, borderRadius: 16,
               background: 'var(--gradient)',
@@ -69,13 +70,12 @@ export default function Education() {
               {[
                 { icon: <Calendar size={15} />, label: 'Period', value: '2023 — Present' },
                 { icon: <BookOpen size={15} />, label: 'Study', value: 'Third Year · Full-time' },
+                { icon: <Award size={15} />, label: 'Current GPA', value: '3.72 · First Class' },
                 { icon: <MapPin size={15} />, label: 'Location', value: 'Moratuwa, Sri Lanka' },
               ].map(item => (
-                <div key={item.label} style={{
+                <div key={item.label} className="education-detail-card" style={{
                   display: 'flex', alignItems: 'center', gap: 12,
                   padding: '0.85rem 1rem', borderRadius: 10,
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid var(--border-subtle)',
                 }}>
                   <span style={{ color: 'var(--primary-light)', flexShrink: 0 }}>{item.icon}</span>
                   <div>
@@ -87,7 +87,7 @@ export default function Education() {
             </div>
           </article>
 
-          <article className="glass" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem' }}>
+          <article className="glass education-content-card" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem' }}>
             <h3 style={{
               fontFamily: 'var(--font-display)', fontSize: '1.15rem',
               fontWeight: 700, color: 'var(--text)', margin: '0 0 1.35rem',
@@ -98,12 +98,9 @@ export default function Education() {
             </h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
               {COURSES.map((course, index) => (
-                <span key={course} style={{
+                <span key={course} className="education-course-chip" data-tone={index % 3} style={{
                   padding: '6px 11px', borderRadius: 100,
-                  background: index % 3 === 0 ? 'rgba(99,102,241,0.1)' : index % 3 === 1 ? 'rgba(168,85,247,0.1)' : 'rgba(6,182,212,0.1)',
-                  border: `1px solid ${index % 3 === 0 ? 'rgba(99,102,241,0.2)' : index % 3 === 1 ? 'rgba(168,85,247,0.2)' : 'rgba(6,182,212,0.2)'}`,
                   fontSize: '0.72rem',
-                  color: index % 3 === 0 ? 'var(--primary-light)' : index % 3 === 1 ? 'var(--accent-light)' : 'var(--teal)',
                   fontWeight: 500,
                 }}>{course}</span>
               ))}
@@ -111,7 +108,7 @@ export default function Education() {
           </article>
         </div>
 
-        <article className="glass" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem', marginTop: '2rem' }}>
+        <article className="glass education-content-card" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem', marginTop: '2rem' }}>
           <h3 style={{
             fontFamily: 'var(--font-display)', fontSize: '1.15rem',
             fontWeight: 700, color: 'var(--text)', margin: '0 0 1.35rem',
@@ -122,15 +119,13 @@ export default function Education() {
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 10 }}>
             {ACTIVITIES.map(activity => (
-              <div key={`${activity.name}-${activity.period}`} style={{
+              <div key={`${activity.name}-${activity.period}`} className="education-activity-card" style={{
                 display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12,
                 padding: '0.9rem 1rem', borderRadius: 10,
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid var(--border-subtle)',
               }}>
                 <div>
                   <div style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text)', marginBottom: 3 }}>{activity.name}</div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--accent-light)', lineHeight: 1.45 }}>{activity.role}</div>
+                  <div className="education-activity-role" style={{ fontSize: '0.7rem', lineHeight: 1.45 }}>{activity.role}</div>
                   <div style={{ fontSize: '0.66rem', color: 'var(--text-dim)', marginTop: 3 }}>University of Moratuwa</div>
                 </div>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)', flexShrink: 0 }}>

@@ -206,7 +206,7 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
           >{link.label}</button>
         ))}
         <div style={{ marginTop: 'auto' }}>
-          <a href="/resume.pdf" download style={{
+          <a href="/resume.pdf" download="Senuth_Abeywardana_Resume.pdf" style={{
             display: 'block', textAlign: 'center',
             padding: '0.75rem',
             background: 'var(--gradient)',
