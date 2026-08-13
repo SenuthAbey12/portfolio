@@ -3,6 +3,37 @@ import { NextResponse } from 'next/server'
 const DESTINATION_EMAIL = 'senuthabeywardana@gmail.com'
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+function getSubmissionLocation(request: Request, suppliedUrl: string) {
+  const requestUrl = new URL(request.url)
+  let siteOrigin = requestUrl.origin
+
+  try {
+    const headerOrigin = request.headers.get('origin')
+
+    if (headerOrigin) {
+      const parsedOrigin = new URL(headerOrigin)
+
+      if (parsedOrigin.protocol === 'http:' || parsedOrigin.protocol === 'https:') {
+        siteOrigin = parsedOrigin.origin
+      }
+    }
+  } catch {
+    // Fall back to the API request URL when the Origin header is malformed.
+  }
+
+  try {
+    const parsedPageUrl = new URL(suppliedUrl)
+
+    if (parsedPageUrl.origin === siteOrigin) {
+      return { siteOrigin, pageUrl: parsedPageUrl.toString() }
+    }
+  } catch {
+    // Fall back to the contact section for missing or malformed page URLs.
+  }
+
+  return { siteOrigin, pageUrl: `${siteOrigin}/#contact` }
+}
+
 type ContactPayload = {
   email?: unknown
   message?: unknown
@@ -42,10 +73,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Your message must contain between 2 and 3,000 characters.' }, { status: 400 })
   }
 
-  const origin = request.headers.get('origin') ?? new URL(request.url).origin
-  const pageUrl = suppliedUrl.startsWith('http://') || suppliedUrl.startsWith('https://')
-    ? suppliedUrl
-    : `${origin}/#contact`
+  const { siteOrigin, pageUrl } = getSubmissionLocation(request, suppliedUrl)
 
   try {
     const deliveryResponse = await fetch(`https://formsubmit.co/ajax/${DESTINATION_EMAIL}`, {
@@ -53,6 +81,11 @@ export async function POST(request: Request) {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        // FormSubmit validates the submitting website. Server-side fetch does not
+        // forward these browser headers automatically, so provide the validated
+        // page location explicitly.
+        Origin: siteOrigin,
+        Referer: pageUrl,
       },
       body: JSON.stringify({
         email,
@@ -71,6 +104,13 @@ export async function POST(request: Request) {
       const serviceMessage = typeof result?.message === 'string'
         ? result.message
         : 'The email service rejected the submission. Please try again shortly.'
+
+      if (serviceMessage.toLowerCase().includes('activation')) {
+        return NextResponse.json(
+          { error: 'The contact form needs activation. Check the portfolio inbox for the FormSubmit activation email, activate it, then try again.' },
+          { status: 503 },
+        )
+      }
 
       return NextResponse.json({ error: serviceMessage }, { status: 502 })
     }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { ArrowUp, MessageCircle } from 'lucide-react'
+import { ArrowUp } from 'lucide-react'
 
 export default function FloatingActions() {
   const [show, setShow] = useState(false)
@@ -22,20 +22,6 @@ export default function FloatingActions() {
       transition: 'all 0.3s ease',
       pointerEvents: show ? 'all' : 'none',
     }}>
-      <a href="#contact" style={{
-        width: 44, height: 44,
-        borderRadius: '50%',
-        background: 'var(--gradient)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: '#fff', textDecoration: 'none',
-        boxShadow: '0 4px 20px rgba(168,85,247,0.4)',
-        transition: 'transform 0.2s',
-      }}
-        onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.1)')}
-        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-      >
-        <MessageCircle size={18} />
-      </a>
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         style={{
