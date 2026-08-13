@@ -13,7 +13,7 @@ const SKILL_CATEGORIES = [
     icon: <Code2 size={19} />,
     skills: [
       { name: 'Python', desc: 'AI, automation, and backend development', mark: 'PY' },
-      { name: 'Java', desc: 'OOP, Swing, concurrency, and desktop applications', mark: 'JV' },
+      { name: 'Java', desc: 'OOP, concurrency, and application development', mark: 'JV' },
       { name: 'JavaScript', desc: 'Modern interactive web development', mark: 'JS' },
       { name: 'TypeScript', desc: 'Type-safe web applications', mark: 'TS' },
       { name: 'C++', desc: 'Algorithms and systems programming', mark: 'C+' },
@@ -31,7 +31,6 @@ const SKILL_CATEGORIES = [
       { name: 'HTML', desc: 'Semantic web structure', mark: 'HT' },
       { name: 'CSS', desc: 'Responsive layouts and animation', mark: 'CS' },
       { name: 'Tailwind CSS', desc: 'Utility-first styling', mark: 'TW' },
-      { name: 'Java Swing', desc: 'Desktop user interfaces', mark: 'SW' },
     ],
   },
   {
@@ -42,6 +41,7 @@ const SKILL_CATEGORIES = [
     icon: <Server size={19} />,
     skills: [
       { name: 'FastAPI', desc: 'Python REST APIs', mark: 'FA' },
+      { name: 'Java', desc: 'Backend services and application logic', mark: 'JV' },
       { name: 'Node.js', desc: 'Server-side JavaScript', mark: 'NO' },
       { name: 'Express', desc: 'Node.js web services', mark: 'EX' },
     ],
@@ -62,11 +62,11 @@ const SKILL_CATEGORIES = [
     id: 'database',
     label: 'Databases',
     short: 'Data management',
-    description: 'Relational and document databases for reliable storage, querying, and application data design.',
+    description: 'Relational databases for reliable storage, querying, and application data design.',
     icon: <Database size={19} />,
     skills: [
       { name: 'PostgreSQL', desc: 'Relational data management', mark: 'PG' },
-      { name: 'MongoDB', desc: 'Document-oriented data storage', mark: 'MO' },
+      { name: 'MySQL', desc: 'Relational database management', mark: 'MY' },
     ],
   },
   {
@@ -79,7 +79,6 @@ const SKILL_CATEGORIES = [
       { name: 'Git', desc: 'Version control and collaboration', mark: 'GT' },
       { name: 'GitHub', desc: 'Code hosting and teamwork', mark: 'GH' },
       { name: 'Docker', desc: 'Containerized development', mark: 'DK' },
-      { name: 'Linux', desc: 'Development and shell environments', mark: 'LX' },
       { name: 'VS Code', desc: 'Development environment', mark: 'VS' },
     ],
   },
