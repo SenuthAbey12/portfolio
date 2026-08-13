@@ -158,15 +158,6 @@ export default function Contact() {
                 </div>
               ))}
             </div>
-
-            <div style={{
-              padding: '1rem 1.2rem', borderRadius: 14,
-              background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.16)',
-              display: 'flex', alignItems: 'center', gap: 10,
-            }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--green)', boxShadow: '0 0 8px var(--green)' }} />
-              <span style={{ color: 'var(--green)', fontSize: '0.8rem', fontWeight: 600 }}>Currently open to opportunities</span>
-            </div>
           </div>
 
           <div className="glass gradient-border" style={{ padding: '2.5rem', borderRadius: 'var(--radius-xl)', minHeight: 520 }}>

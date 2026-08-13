@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { ArrowDown, Download, ExternalLink } from 'lucide-react'
+import { FaLinkedinIn } from 'react-icons/fa'
 import { SiGithub } from 'react-icons/si'
 
 const PARTICLES = Array.from({ length: 40 }, (_, i) => ({
@@ -111,26 +112,6 @@ export default function Hero() {
       }}>
         {/* Left content */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-          {/* Status badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              padding: '6px 14px', borderRadius: 100,
-              background: 'rgba(16,185,129,0.1)',
-              border: '1px solid rgba(16,185,129,0.25)',
-            }}>
-              <div style={{
-                width: 7, height: 7, borderRadius: '50%',
-                background: 'var(--green)',
-                boxShadow: '0 0 8px var(--green)',
-                animation: 'pulse-ring 2s ease-out infinite',
-              }} />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--green)' }}>
-                Available for Internships
-              </span>
-            </div>
-          </div>
-
           {/* Headline */}
           <div>
             <h1 style={{
@@ -217,6 +198,7 @@ export default function Hero() {
           <div style={{ display: 'flex', gap: 10 }}>
             {[
               { icon: <SiGithub size={18} />, href: 'https://github.com/SenuthAbey12', label: 'GitHub' },
+              { icon: <FaLinkedinIn size={18} />, href: 'https://www.linkedin.com/in/senuth-abeywardana-a71a36395', label: 'LinkedIn' },
             ].map(s => (
               <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
                 style={{
