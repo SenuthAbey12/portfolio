@@ -28,7 +28,7 @@ const PROJECTS: Project[] = [
     desc: 'AI inventory platform for real-time product recognition, stock counting, and anomaly detection.',
     image: '/img1.png',
     tags: ['Python', 'YOLOv8', 'FastAPI', 'React', 'PostgreSQL', 'Docker'],
-    github: 'https://github.com/SenuthAbey12',
+    github: 'https://github.com/Snapstock-AI/SnapStock-AI.git',
     color: 'var(--primary)',
   },
   {
@@ -52,7 +52,7 @@ const PROJECTS: Project[] = [
     desc: 'Java Swing application for show scheduling, visual seat selection, bookings, and ticket generation.',
     image: './movie.png',
     tags: ['Java', 'Swing', 'OOP', 'Multithreading', 'Synchronization', 'Serialization'],
-    github: 'https://github.com/SenuthAbey12',
+    github: '',
     color: 'var(--teal)',
   },
   {
@@ -64,7 +64,7 @@ const PROJECTS: Project[] = [
     desc: 'Windows assistant for voice commands, application launching, file management, and system monitoring.',
     image: '/img3.png',
     tags: ['Python', 'LLM', 'Windows', 'FastAPI', 'Speech', 'Automation'],
-    github: 'https://github.com/SenuthAbey12',
+    github: 'https://github.com/SenuthAbey12/nova-assistant.git',
     color: 'var(--green)',
   },
 ]

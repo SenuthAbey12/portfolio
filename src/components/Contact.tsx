@@ -129,7 +129,7 @@ export default function Contact() {
                 {
                   icon: <MapPin size={19} />,
                   label: 'Location',
-                  value: 'Moratuwa, Sri Lanka',
+                  value: 'Gampaha, Sri Lanka',
                   href: null,
                   color: 'var(--accent-light)',
                   rgb: '168,85,247',
