@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { href: '#projects', label: 'Projects' },
   { href: '#experience', label: 'Experience' },
   { href: '#education', label: 'Education' },
-  { href: '#github', label: 'GitHub' },
+  { href: '#certifications', label: 'Credentials' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -76,11 +76,11 @@ export default function Navbar({ theme, toggleTheme }: { theme: string; toggleTh
               fontFamily: 'var(--font-display)', fontWeight: 800,
               fontSize: '0.85rem', color: '#fff',
               boxShadow: '0 4px 16px rgba(99,102,241,0.4)'
-            }}>AK</div>
+            }}>SA</div>
             <span style={{
               fontFamily: 'var(--font-display)', fontWeight: 700,
               fontSize: '1rem', color: 'var(--text)'
-            }}>Alex Kim</span>
+            }}>Senuth Abeywardana</span>
           </button>
 
           {/* Desktop Nav */}

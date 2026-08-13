@@ -1,6 +1,6 @@
 "use client"
 
-import { Brain, Code2, Eye, Server, Calendar, GraduationCap, Trophy, GitBranch , Workflow } from 'lucide-react'
+import { Brain, Code2, Eye, Server, GraduationCap, Workflow } from 'lucide-react'
 import SectionHeader from './SectionHeader'
 
 const INTERESTS = [
@@ -12,20 +12,12 @@ const INTERESTS = [
   
 ]
 
-const STATS = [
-  { value: '', label: 'Projects Completed', icon: <Code2 size={20} /> },
-  { value: '20+', label: 'Technologies Learned', icon: <Brain size={20} /> },
-  { value: '138', label: 'GitHub Contributions', icon: <GitBranch size={20} /> },
-  { value: '4+', label: 'Years of Programming', icon: <Calendar size={20} /> },
-]
-
 const TIMELINE = [
-  { year: '2023', title: 'Started Programming', desc: 'Wrote first Python script, discovered a passion for problem-solving and automation.' },
-  { year: '2024', title: 'Joined University', desc: 'Enrolled in B.S. Computer Science & Engineering at University of Moratuwa.' },
-  { year: '2024', title: 'Built First Web App', desc: 'Developed a full-stack task manager with React and Node.js as a self-taught project.' },
-  { year: '2025', title: 'First Web Development Project', desc: 'Built a full-stack logistics management system to automate rail-road supply chain operations, order allocation, and delivery tracking.' },
-  { year: '2026', title: 'SnapStock AI', desc: 'Led team to build an AI-powered inventory management system using Computer Vision.' },
-  { year: '2026', title: 'AI Resume Screening Platform', desc: 'Built an AI-powered recruitment platform that automates resume screening, candidate ranking, and job matching to help recruiters make faster hiring decisions.' },
+  { year: '2023', title: 'University of Moratuwa', desc: 'Began undergraduate studies in Computer Science & Engineering.' },
+  { year: '2025', title: 'MoraLenz Web Development Team', desc: 'Joined the club’s web development team as a committee member.' },
+  { year: '2025', title: 'Movie Ticket Reservation System', desc: 'Built a Java Swing desktop application using OOP, persistence, and concurrency.' },
+  { year: '2026', title: 'AI Resume Screening Platform', desc: 'Developed an AI-powered platform for resume parsing, candidate ranking, and job matching.' },
+  { year: '2026', title: 'SnapStock AI', desc: 'Built an AI-powered inventory management system using computer vision.' },
 ]
 
 export default function About() {
@@ -58,7 +50,7 @@ export default function About() {
               <p style={{ color: 'var(--text-muted)', lineHeight: 1.8, margin: 0 }}>
                 I'm <strong>Senuth Abeywardana</strong>, a third-year Computer Science &amp; Engineering undergraduate student at the
                 <strong> University of Moratuwa</strong>. My primary interests are Full Stack Development and DevOps, complemented
-                by hands-on experience in Artificial Intelligence, Machine Learning,Deep Learning and Computer Vision. I enjoy building scalable software, learning
+                by hands-on experience in Artificial Intelligence, Machine Learning, Deep Learning, and Computer Vision. I enjoy building scalable software, learning
                 modern technologies, and creating solutions that have a meaningful real-world impact.
               </p>
             </div>
@@ -149,40 +141,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* Stats cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1.25rem',
-        }}>
-          {STATS.map((stat, i) => (
-            <div key={i} className="glass glow-on-hover" style={{
-              padding: '1.75rem',
-              borderRadius: 'var(--radius-lg)',
-              textAlign: 'center',
-              transition: 'all 0.3s ease',
-              cursor: 'default',
-            }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)' }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)' }}
-            >
-              <div style={{
-                width: 44, height: 44, borderRadius: 12,
-                background: `rgba(${i % 4 === 0 ? '99,102,241' : i % 4 === 1 ? '168,85,247' : i % 4 === 2 ? '6,182,212' : '16,185,129'},0.15)`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                margin: '0 auto 1rem',
-                color: [' var(--primary)', 'var(--accent)', 'var(--teal)', 'var(--green)'][i],
-              }}>{stat.icon}</div>
-              <div style={{
-                fontFamily: 'var(--font-display)', fontSize: '2rem',
-                fontWeight: 800, color: 'var(--text)',
-                background: 'var(--gradient-text)', WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>{stat.value}</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: 4 }}>{stat.label}</div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   )

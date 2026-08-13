@@ -1,21 +1,29 @@
 "use client"
 
-import { GraduationCap, BookOpen, Award, Calendar } from 'lucide-react'
+import { BookOpen, Calendar, GraduationCap, MapPin, Users } from 'lucide-react'
 import SectionHeader from './SectionHeader'
 
 const COURSES = [
-  'Data Structures & Algorithms', 'Machine Learning',
-  'Computer Vision', 'Database Systems',
-  'Operating Systems', 'Computer Networks',
-  'Software Engineering', 'Linear Algebra',
-  'Discrete Mathematics', 'Artificial Intelligence',
+  'Programming Fundamentals (Python)',
+  'Program Construction (Java & OOP)',
+  'Data Structures and Algorithms',
+  'Programming Languages',
+  'Software Engineering',
+  'Advanced Software Engineering',
+  'Database Systems',
+  'Operating Systems',
+  'Computer Networks',
+  'Introduction to Artificial Intelligence',
+  'Image Processing',
+  'IoT Devices and Applications',
+  'Computer Security',
 ]
 
-const ACHIEVEMENTS = [
-  { label: "Dean's List", desc: 'All 4 semesters', icon: '🏆' },
-  { label: 'GPA 3.87/4.0', desc: 'Academic excellence', icon: '📊' },
-  { label: 'Best Project Award', desc: 'CS Senior Showcase 2024', icon: '🥇' },
-  { label: 'Merit Scholarship', desc: '2022, 2023, 2024', icon: '🎓' },
+const ACTIVITIES = [
+  { role: 'Organizing Committee Member', name: 'IESL RoboGames', period: '2025/26' },
+  { role: 'Organizing Committee Member', name: 'SLIoT Challenge', period: '2026' },
+  { role: 'Company Coordinator', name: 'CSE Careers Day', period: '2026' },
+  { role: 'Organizing Committee Member', name: 'Hit the Ground', period: '2026' },
 ]
 
 export default function Education() {
@@ -29,20 +37,16 @@ export default function Education() {
           tag="education"
           title="Academic"
           highlight="Foundation"
-          subtitle="Building strong theoretical foundations alongside real-world practical skills."
+          subtitle="Computer Science and Engineering studies supported by practical technical and team experience."
         />
 
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '2rem',
+          alignItems: 'start',
         }}>
-          {/* Main degree card */}
-          <div className="glass gradient-border" style={{
-            borderRadius: 'var(--radius-xl)',
-            padding: '2.5rem',
-            gridColumn: 'span 1',
-          }}>
+          <article className="glass gradient-border" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem' }}>
             <div style={{
               width: 64, height: 64, borderRadius: 16,
               background: 'var(--gradient)',
@@ -54,122 +58,88 @@ export default function Education() {
             </div>
 
             <h3 style={{
-              fontFamily: 'var(--font-display)', fontSize: '1.4rem',
-              fontWeight: 800, color: 'var(--text)', margin: '0 0 0.25rem',
-            }}>B.S. Computer Science &amp; Engineering</h3>
-
-            <p style={{ color: 'var(--primary-light)', fontSize: '1rem', margin: '0 0 1.5rem', fontWeight: 500 }}>
-              State Technical University
+              fontFamily: 'var(--font-display)', fontSize: '1.35rem',
+              fontWeight: 800, color: 'var(--text)', margin: '0 0 0.35rem', lineHeight: 1.35,
+            }}>Computer Science &amp; Engineering Undergraduate</h3>
+            <p style={{ color: 'var(--primary-light)', fontSize: '1rem', margin: '0 0 1.5rem', fontWeight: 600 }}>
+              University of Moratuwa
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: '1.5rem' }}>
+            <div style={{ display: 'grid', gap: 10 }}>
               {[
-                { icon: <Calendar size={14} />, label: 'Graduation', value: 'May 2026' },
-                { icon: <Award size={14} />, label: 'GPA', value: '3.87 / 4.0' },
-                { icon: <BookOpen size={14} />, label: 'Year', value: 'Third Year' },
-                { icon: <GraduationCap size={14} />, label: 'Type', value: 'Full-time' },
+                { icon: <Calendar size={15} />, label: 'Period', value: '2023 — Present' },
+                { icon: <BookOpen size={15} />, label: 'Study', value: 'Third Year · Full-time' },
+                { icon: <MapPin size={15} />, label: 'Location', value: 'Moratuwa, Sri Lanka' },
               ].map(item => (
                 <div key={item.label} style={{
-                  padding: '0.75rem 1rem',
-                  borderRadius: 10,
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '0.85rem 1rem', borderRadius: 10,
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid var(--border-subtle)',
                 }}>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', gap: 5,
-                    color: 'var(--text-muted)', fontSize: '0.72rem', marginBottom: 2,
-                  }}>
-                    {item.icon} {item.label}
-                  </div>
-                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text)' }}>{item.value}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Achievements */}
-            <h4 style={{
-              fontFamily: 'var(--font-display)', fontSize: '0.95rem',
-              fontWeight: 700, color: 'var(--text)', margin: '0 0 0.75rem',
-            }}>Honors &amp; Achievements</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {ACHIEVEMENTS.map(ach => (
-                <div key={ach.label} style={{
-                  display: 'flex', alignItems: 'center', gap: 10,
-                  padding: '0.6rem 0.8rem',
-                  borderRadius: 8,
-                  background: 'rgba(99,102,241,0.06)',
-                  border: '1px solid rgba(99,102,241,0.12)',
-                }}>
-                  <span style={{ fontSize: '1rem' }}>{ach.icon}</span>
+                  <span style={{ color: 'var(--primary-light)', flexShrink: 0 }}>{item.icon}</span>
                   <div>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text)' }}>{ach.label}</div>
-                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{ach.desc}</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.68rem', marginBottom: 2 }}>{item.label}</div>
+                    <div style={{ fontWeight: 600, fontSize: '0.86rem', color: 'var(--text)' }}>{item.value}</div>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </article>
 
-          {/* Coursework card */}
-          <div className="glass" style={{
-            borderRadius: 'var(--radius-xl)',
-            padding: '2.5rem',
-          }}>
+          <article className="glass" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem' }}>
             <h3 style={{
-              fontFamily: 'var(--font-display)', fontSize: '1.2rem',
-              fontWeight: 700, color: 'var(--text)', margin: '0 0 1.5rem',
+              fontFamily: 'var(--font-display)', fontSize: '1.15rem',
+              fontWeight: 700, color: 'var(--text)', margin: '0 0 1.35rem',
               display: 'flex', alignItems: 'center', gap: 8,
             }}>
               <BookOpen size={20} style={{ color: 'var(--accent)' }} />
               Relevant Coursework
             </h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-              {COURSES.map((course, i) => (
+              {COURSES.map((course, index) => (
                 <span key={course} style={{
-                  padding: '6px 14px', borderRadius: 100,
-                  background: i % 3 === 0 ? 'rgba(99,102,241,0.1)' : i % 3 === 1 ? 'rgba(168,85,247,0.1)' : 'rgba(6,182,212,0.1)',
-                  border: `1px solid ${i % 3 === 0 ? 'rgba(99,102,241,0.2)' : i % 3 === 1 ? 'rgba(168,85,247,0.2)' : 'rgba(6,182,212,0.2)'}`,
-                  fontSize: '0.8rem',
-                  color: i % 3 === 0 ? 'var(--primary-light)' : i % 3 === 1 ? 'var(--accent-light)' : 'var(--teal)',
+                  padding: '6px 11px', borderRadius: 100,
+                  background: index % 3 === 0 ? 'rgba(99,102,241,0.1)' : index % 3 === 1 ? 'rgba(168,85,247,0.1)' : 'rgba(6,182,212,0.1)',
+                  border: `1px solid ${index % 3 === 0 ? 'rgba(99,102,241,0.2)' : index % 3 === 1 ? 'rgba(168,85,247,0.2)' : 'rgba(6,182,212,0.2)'}`,
+                  fontSize: '0.72rem',
+                  color: index % 3 === 0 ? 'var(--primary-light)' : index % 3 === 1 ? 'var(--accent-light)' : 'var(--teal)',
                   fontWeight: 500,
                 }}>{course}</span>
               ))}
             </div>
-
-            {/* Extracurricular */}
-            <div style={{ marginTop: '2rem' }}>
-              <h4 style={{
-                fontFamily: 'var(--font-display)', fontSize: '0.95rem',
-                fontWeight: 700, color: 'var(--text)', margin: '0 0 1rem',
-              }}>Extracurricular Activities</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {[
-                  { name: 'ACM Student Chapter', role: 'Technical Lead', period: '2023–Present' },
-                  { name: 'AI/ML Club', role: 'Co-Founder & President', period: '2023–Present' },
-                  { name: 'Competitive Programming Team', role: 'Member', period: '2022–2024' },
-                  { name: 'Hackathon Committee', role: 'Organizer', period: '2024' },
-                ].map(activity => (
-                  <div key={activity.name} style={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    padding: '0.75rem 1rem',
-                    borderRadius: 10,
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid var(--border-subtle)',
-                  }}>
-                    <div>
-                      <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text)' }}>{activity.name}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--accent-light)' }}>{activity.role}</div>
-                    </div>
-                    <span style={{
-                      fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
-                      color: 'var(--text-muted)',
-                    }}>{activity.period}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          </article>
         </div>
+
+        <article className="glass" style={{ borderRadius: 'var(--radius-xl)', padding: '2.5rem', marginTop: '2rem' }}>
+          <h3 style={{
+            fontFamily: 'var(--font-display)', fontSize: '1.15rem',
+            fontWeight: 700, color: 'var(--text)', margin: '0 0 1.35rem',
+            display: 'flex', alignItems: 'center', gap: 8,
+          }}>
+            <Users size={20} style={{ color: 'var(--teal)' }} />
+            Extracurricular Activities
+          </h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 10 }}>
+            {ACTIVITIES.map(activity => (
+              <div key={`${activity.name}-${activity.period}`} style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12,
+                padding: '0.9rem 1rem', borderRadius: 10,
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid var(--border-subtle)',
+              }}>
+                <div>
+                  <div style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text)', marginBottom: 3 }}>{activity.name}</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--accent-light)', lineHeight: 1.45 }}>{activity.role}</div>
+                  <div style={{ fontSize: '0.66rem', color: 'var(--text-dim)', marginTop: 3 }}>University of Moratuwa</div>
+                </div>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)', flexShrink: 0 }}>
+                  {activity.period}
+                </span>
+              </div>
+            ))}
+          </div>
+        </article>
       </div>
     </section>
   )

@@ -1,9 +1,8 @@
 "use client"
 
 import { useEffect, useRef } from 'react'
-import { Mail, ArrowDown, Download, ExternalLink } from 'lucide-react'
-import { FaLinkedin } from 'react-icons/fa6'
-import { SiGithub, SiX } from 'react-icons/si'
+import { ArrowDown, Download, ExternalLink } from 'lucide-react'
+import { SiGithub } from 'react-icons/si'
 
 const PARTICLES = Array.from({ length: 40 }, (_, i) => ({
   id: i,
@@ -218,9 +217,6 @@ export default function Hero() {
           <div style={{ display: 'flex', gap: 10 }}>
             {[
               { icon: <SiGithub size={18} />, href: 'https://github.com/SenuthAbey12', label: 'GitHub' },
-              { icon: <FaLinkedin size={18} />, href: 'https://linkedin.com', label: 'LinkedIn' },
-              { icon: <SiX size={18} />, href: 'https://twitter.com', label: 'X/Twitter' },
-              { icon: <Mail size={18} />, href: 'mailto:alex@example.com', label: 'Email' },
             ].map(s => (
               <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
                 style={{

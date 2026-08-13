@@ -1,62 +1,56 @@
 "use client"
 
-import { ExternalLink, Award, Calendar } from 'lucide-react'
+import { Award, Bot, Calendar, Code2, GraduationCap, MapPin } from 'lucide-react'
 import SectionHeader from './SectionHeader'
 
-const CERTS = [
+const CREDENTIALS = [
   {
-    title: 'TensorFlow Developer Certificate',
-    org: 'Google',
-    date: 'Oct 2024',
-    image: 'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=300&h=180&fit=crop&auto=format',
+    title: 'Information & Technology Diploma',
+    org: 'ICBT Campus',
+    date: '2023',
+    location: 'Gampaha, Sri Lanka',
+    description: 'Completed a Diploma in Information & Technology covering programming fundamentals, networking, databases, and software applications.',
+    highlights: [],
+    icon: <GraduationCap size={30} />,
     color: 'var(--primary)',
-    credentialId: 'TF-DEV-2024-9821',
-    link: '#',
   },
   {
-    title: 'AWS Certified Cloud Practitioner',
-    org: 'Amazon Web Services',
-    date: 'Aug 2024',
-    image: 'https://images.unsplash.com/photo-1607798748738-b15c40d33d57?w=300&h=180&fit=crop&auto=format',
-    color: 'var(--accent)',
-    credentialId: 'AWS-CP-2024-17243',
-    link: '#',
-  },
-  {
-    title: 'Machine Learning Specialization',
-    org: 'Coursera / DeepLearning.AI',
-    date: 'Jun 2024',
-    image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=300&h=180&fit=crop&auto=format',
+    title: 'Python for Beginners',
+    org: 'University of Moratuwa — Centre for Open & Distance Learning (CODL)',
+    date: '2026',
+    location: 'Sri Lanka',
+    description: 'Participated in the Python for Beginners online learning programme conducted by the Department of Computer Science & Engineering, Faculty of Engineering, University of Moratuwa.',
+    highlights: [],
+    icon: <Code2 size={30} />,
     color: 'var(--teal)',
-    credentialId: 'DL-ML-SPEC-2024',
-    link: '#',
   },
   {
-    title: 'Docker Certified Associate',
-    org: 'Docker Inc.',
-    date: 'Mar 2024',
-    image: 'https://images.unsplash.com/photo-1621839673705-6617adf9e890?w=300&h=180&fit=crop&auto=format',
-    color: 'var(--green)',
-    credentialId: 'DCA-2024-4412',
-    link: '#',
-  },
-  {
-    title: 'Meta Front-End Developer',
-    org: 'Meta / Coursera',
-    date: 'Dec 2023',
-    image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=300&h=180&fit=crop&auto=format',
-    color: 'var(--primary)',
-    credentialId: 'META-FE-2023-8810',
-    link: '#',
-  },
-  {
-    title: 'Google Data Analytics',
-    org: 'Google / Coursera',
-    date: 'Sep 2023',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=180&fit=crop&auto=format',
+    title: 'Competitive Programming & Hackathons',
+    org: 'University-Level Competitions',
+    date: '',
+    location: '',
+    description: '',
+    highlights: [
+      'Participated in UoJ Coders, solving algorithmic and programming challenges in a competitive environment.',
+      'Competed in MoraXtreme 10.0, an overnight coding competition focused on problem solving and teamwork.',
+      'Participated in CodeRally, gaining experience in collaborative software development and rapid solution design.',
+    ],
+    icon: <Award size={30} />,
     color: 'var(--accent)',
-    credentialId: 'GDA-2023-3309',
-    link: '#',
+  },
+  {
+    title: 'Robotics Competitions',
+    org: 'University Competitions',
+    date: '',
+    location: '',
+    description: '',
+    highlights: [
+      'SLRC 2025 — Finalist in the Sri Lanka Robotics Challenge.',
+      'SLRC 2026 — Finalist in the Sri Lanka Robotics Challenge.',
+      'MicroMaze 2.0 — Achieved a Top 10 finish in an autonomous robotics competition.',
+    ],
+    icon: <Bot size={30} />,
+    color: 'var(--green)',
   },
 ]
 
@@ -65,84 +59,89 @@ export default function Certifications() {
     <section id="certifications" style={{ padding: '6rem 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1.5rem' }}>
         <SectionHeader
-          tag="certifications"
+          tag="credentials"
           title="Certificates &"
           highlight="Credentials"
-          subtitle="Industry-recognized certifications validating my technical expertise."
+          subtitle="Technical education, programming competitions, and robotics achievements."
         />
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '1.25rem',
+          alignItems: 'stretch',
         }}>
-          {CERTS.map((cert, i) => (
-            <div key={i}
+          {CREDENTIALS.map(credential => (
+            <article
+              key={credential.title}
               className="glass"
               style={{
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',
                 transition: 'all 0.3s ease',
+                display: 'flex', flexDirection: 'column',
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLElement).style.boxShadow = `0 16px 48px ${cert.color}18` }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLElement).style.boxShadow = 'none' }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.boxShadow = `0 16px 48px ${credential.color}18`
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
             >
-              {/* Thumbnail */}
-              <div style={{ height: 140, overflow: 'hidden', position: 'relative' }}>
-                <img src={cert.image} alt={cert.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{
+                height: 120,
+                position: 'relative', overflow: 'hidden',
+                background: `linear-gradient(135deg, ${credential.color}22, rgba(13,17,32,0.92))`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
                 <div style={{
-                  position: 'absolute', inset: 0,
-                  background: `linear-gradient(to top, rgba(8,11,20,0.92) 0%, rgba(8,11,20,0.3) 60%)`,
-                }} />
-                <div style={{
-                  position: 'absolute', top: 12, right: 12,
-                  width: 36, height: 36, borderRadius: 10,
-                  background: `${cert.color}22`, border: `1px solid ${cert.color}40`,
+                  width: 62, height: 62, borderRadius: 18,
+                  background: `${credential.color}18`,
+                  border: `1px solid ${credential.color}35`,
+                  color: credential.color,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  backdropFilter: 'blur(8px)',
+                  boxShadow: `0 8px 28px ${credential.color}18`,
                 }}>
-                  <Award size={16} style={{ color: cert.color }} />
+                  {credential.icon}
                 </div>
               </div>
 
-              <div style={{ padding: '1.25rem' }}>
+              <div style={{ padding: '1.4rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <h3 style={{
                   fontFamily: 'var(--font-display)', fontWeight: 700,
-                  fontSize: '1rem', color: 'var(--text)', margin: '0 0 0.4rem',
-                  lineHeight: 1.3,
-                }}>{cert.title}</h3>
-                <p style={{ color: cert.color, fontSize: '0.82rem', margin: '0 0 0.75rem', fontWeight: 500 }}>
-                  {cert.org}
+                  fontSize: '1rem', color: 'var(--text)', margin: '0 0 0.45rem', lineHeight: 1.4,
+                }}>{credential.title}</h3>
+                <p style={{ color: credential.color, fontSize: '0.78rem', margin: '0 0 0.8rem', fontWeight: 600, lineHeight: 1.5 }}>
+                  {credential.org}
                 </p>
-                <div style={{
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  marginBottom: '1rem',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 5, color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-                    <Calendar size={12} /> {cert.date}
+
+                {(credential.date || credential.location) && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem 1rem', marginBottom: '1rem', color: 'var(--text-muted)', fontSize: '0.7rem' }}>
+                    {credential.date && <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><Calendar size={12} /> {credential.date}</span>}
+                    {credential.location && <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><MapPin size={12} /> {credential.location}</span>}
                   </div>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-                    color: 'var(--text-dim)', letterSpacing: '0.05em',
-                  }}>ID: {cert.credentialId}</span>
-                </div>
-                <a href={cert.link} style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                  padding: '0.6rem',
-                  borderRadius: 10,
-                  background: `${cert.color}12`,
-                  border: `1px solid ${cert.color}25`,
-                  color: cert.color, fontSize: '0.8rem', fontWeight: 600,
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = `${cert.color}22` }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = `${cert.color}12` }}
-                >
-                  <ExternalLink size={13} /> View Certificate
-                </a>
+                )}
+
+                {credential.description && (
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', lineHeight: 1.65, margin: 0 }}>
+                    {credential.description}
+                  </p>
+                )}
+
+                {credential.highlights.length > 0 && (
+                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {credential.highlights.map(highlight => (
+                      <li key={highlight} style={{ display: 'flex', gap: 7, color: 'var(--text-muted)', fontSize: '0.76rem', lineHeight: 1.55 }}>
+                        <span style={{ color: credential.color, flexShrink: 0 }}>▸</span>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

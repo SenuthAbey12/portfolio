@@ -1,31 +1,63 @@
 "use client"
 
 import { useState } from 'react'
-import { Mail, MapPin, Download, Send, CheckCircle } from 'lucide-react'
-import { FaLinkedin } from 'react-icons/fa6'
+import { CheckCircle, MapPin, Send } from 'lucide-react'
 import { SiGithub } from 'react-icons/si'
 import SectionHeader from './SectionHeader'
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+  const [form, setForm] = useState({ email: '', message: '', website: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     setLoading(true)
-    setTimeout(() => { setLoading(false); setSent(true) }, 1500)
+    setError('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: form.email,
+          message: form.message,
+          website: form.website,
+          pageUrl: window.location.href,
+        }),
+      })
+      const result = await response.json().catch(() => null)
+
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.error || 'Your message could not be sent. Please try again.')
+      }
+
+      setForm({ email: '', message: '', website: '' })
+      setSent(true)
+    } catch (submissionError) {
+      setError(submissionError instanceof Error
+        ? submissionError.message
+        : 'Your message could not be sent. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputStyle = {
-    width: '100%', padding: '0.85rem 1rem',
+    width: '100%',
+    padding: '0.85rem 1rem',
     borderRadius: 12,
     background: 'rgba(255,255,255,0.04)',
     border: '1px solid var(--border)',
-    color: 'var(--text)', fontSize: '0.9rem',
+    color: 'var(--text)',
+    fontSize: '0.88rem',
     fontFamily: 'var(--font-sans)',
     outline: 'none',
-    transition: 'border-color 0.2s',
+    transition: 'border-color 0.2s, background 0.2s',
     boxSizing: 'border-box' as const,
   }
 
@@ -39,196 +71,178 @@ export default function Contact() {
           tag="contact"
           title="Get In"
           highlight="Touch"
-          subtitle="Have an opportunity or just want to chat? My inbox is always open."
+          subtitle="Have an opportunity, a project idea, or just want to connect? I would be happy to hear from you."
         />
 
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '2.5rem',
+          alignItems: 'stretch',
         }}>
-          {/* Left — info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div className="glass" style={{ padding: '2rem', borderRadius: 'var(--radius-xl)' }}>
+              <div style={{
+                width: 48, height: 48, borderRadius: 14,
+                background: 'var(--gradient)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#fff', marginBottom: '1.25rem',
+                boxShadow: '0 8px 24px rgba(99,102,241,0.28)',
+              }}>
+                <Send size={20} />
+              </div>
               <h3 style={{
                 fontFamily: 'var(--font-display)', fontWeight: 700,
-                fontSize: '1.2rem', color: 'var(--text)', margin: '0 0 1rem',
-              }}>Let's Connect</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: 1.8, margin: 0, fontSize: '0.9rem' }}>
-                I'm currently seeking software engineering internships for Summer 2025. I respond to all messages within 24 hours.
-                Whether it's a job opportunity, a collaboration, or just saying hello — reach out!
+                fontSize: '1.25rem', color: 'var(--text)', margin: '0 0 0.9rem',
+              }}>Let&apos;s Connect</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: 1.8, margin: 0, fontSize: '0.88rem' }}>
+                I&apos;m open to software engineering internships, project collaborations, and opportunities to contribute to meaningful software products. Feel free to reach out and start a conversation.
               </p>
             </div>
 
-            {/* Contact links */}
             <div className="glass" style={{ padding: '1.75rem', borderRadius: 'var(--radius-xl)' }}>
               {[
-                { icon: <Mail size={18} />, label: 'Email', value: 'alex.kim@university.edu', href: 'mailto:alex.kim@university.edu', color: 'var(--primary)' },
-                { icon: <FaLinkedin size={18} />, label: 'LinkedIn', value: 'linkedin.com/in/alexkim-cs', href: '#', color: '#0a66c2' },
-                { icon: <SiGithub size={18} />, label: 'GitHub', value: 'https://github.com/SenuthAbey12', href: 'https://github.com/SenuthAbey12', color: '#6e7681' },
-                { icon: <MapPin size={18} />, label: 'Location', value: 'San Francisco Bay Area, CA', href: null, color: 'var(--accent)' },
-              ].map(item => (
+                {
+                  icon: <SiGithub size={19} />,
+                  label: 'GitHub',
+                  value: 'github.com/SenuthAbey12',
+                  href: 'https://github.com/SenuthAbey12',
+                  color: 'var(--primary-light)',
+                  rgb: '99,102,241',
+                },
+                {
+                  icon: <MapPin size={19} />,
+                  label: 'Location',
+                  value: 'Moratuwa, Sri Lanka',
+                  href: null,
+                  color: 'var(--accent-light)',
+                  rgb: '168,85,247',
+                },
+              ].map((item, index) => (
                 <div key={item.label} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
                   padding: '0.9rem 0',
-                  borderBottom: '1px solid var(--border-subtle)',
+                  borderBottom: index === 0 ? '1px solid var(--border-subtle)' : 'none',
                 }}>
                   <div style={{
-                    width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                    background: `${item.color}15`,
-                    border: `1px solid ${item.color}25`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: item.color,
+                    width: 42, height: 42, borderRadius: 11, flexShrink: 0,
+                    background: `rgba(${item.rgb},0.1)`, border: `1px solid rgba(${item.rgb},0.2)`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.color,
                   }}>{item.icon}</div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: 2 }}>{item.label}</div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: 3 }}>{item.label}</div>
                     {item.href ? (
-                      <a href={item.href} style={{
-                        fontSize: '0.88rem', color: item.color,
-                        textDecoration: 'none', fontWeight: 500,
-                        overflow: 'hidden', textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap', display: 'block',
+                      <a href={item.href} target="_blank" rel="noreferrer" style={{
+                        fontSize: '0.86rem', color: item.color, textDecoration: 'none', fontWeight: 600,
                       }}>{item.value}</a>
                     ) : (
-                      <span style={{ fontSize: '0.88rem', color: 'var(--text)', fontWeight: 500 }}>{item.value}</span>
+                      <span style={{ fontSize: '0.86rem', color: 'var(--text)', fontWeight: 600 }}>{item.value}</span>
                     )}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Resume download */}
-            <a href="/resume.pdf" download style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-              padding: '1rem',
-              borderRadius: 14,
-              background: 'var(--gradient)',
-              color: '#fff', textDecoration: 'none',
-              fontWeight: 600, fontSize: '0.95rem',
-              boxShadow: '0 8px 24px rgba(99,102,241,0.35)',
-              transition: 'transform 0.2s',
-            }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)')}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.transform = 'translateY(0)')}
-            >
-              <Download size={18} />
-              Download Resume
-            </a>
+            <div style={{
+              padding: '1rem 1.2rem', borderRadius: 14,
+              background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.16)',
+              display: 'flex', alignItems: 'center', gap: 10,
+            }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--green)', boxShadow: '0 0 8px var(--green)' }} />
+              <span style={{ color: 'var(--green)', fontSize: '0.8rem', fontWeight: 600 }}>Currently open to opportunities</span>
+            </div>
           </div>
 
-          {/* Right — form */}
-          <div className="glass" style={{ padding: '2.5rem', borderRadius: 'var(--radius-xl)' }}>
+          <div className="glass gradient-border" style={{ padding: '2.5rem', borderRadius: 'var(--radius-xl)', minHeight: 520 }}>
             {sent ? (
               <div style={{
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-                height: '100%', gap: '1rem', textAlign: 'center',
-                padding: '2rem 0',
+                height: '100%', minHeight: 420,
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                gap: '1rem', textAlign: 'center',
               }}>
                 <div style={{
-                  width: 64, height: 64, borderRadius: '50%',
-                  background: 'rgba(16,185,129,0.15)',
-                  border: '2px solid rgba(16,185,129,0.3)',
+                  width: 66, height: 66, borderRadius: '50%',
+                  background: 'rgba(16,185,129,0.14)', border: '2px solid rgba(16,185,129,0.3)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <CheckCircle size={28} style={{ color: 'var(--green)' }} />
+                  <CheckCircle size={29} style={{ color: 'var(--green)' }} />
                 </div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)', margin: 0 }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', fontWeight: 700, color: 'var(--text)', margin: 0 }}>
                   Message Sent!
                 </h3>
-                <p style={{ color: 'var(--text-muted)', margin: 0 }}>
-                  Thank you for reaching out. I'll get back to you within 24 hours.
+                <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.88rem' }}>
+                  Thank you for reaching out. I&apos;ll get back to you soon.
                 </p>
                 <button onClick={() => setSent(false)} style={{
-                  marginTop: 8, padding: '0.7rem 1.5rem',
-                  borderRadius: 10, border: '1px solid var(--border)',
-                  background: 'transparent', color: 'var(--text-muted)',
-                  cursor: 'pointer', fontSize: '0.88rem',
-                  fontFamily: 'var(--font-sans)',
+                  marginTop: 8, padding: '0.7rem 1.4rem', borderRadius: 10,
+                  border: '1px solid var(--border)', background: 'transparent',
+                  color: 'var(--text-muted)', cursor: 'pointer', fontFamily: 'var(--font-sans)',
                 }}>Send Another</button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <h3 style={{
-                  fontFamily: 'var(--font-display)', fontWeight: 700,
-                  fontSize: '1.2rem', color: 'var(--text)', margin: '0 0 0.5rem',
-                }}>Send a Message</h3>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 6 }}>
-                      Your Name *
-                    </label>
-                    <input
-                      type="text" required placeholder="John Doe"
-                      value={form.name}
-                      onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                      style={inputStyle}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(99,102,241,0.5)')}
-                      onBlur={e => (e.target.style.borderColor = 'var(--border)')}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 6 }}>
-                      Email Address *
-                    </label>
-                    <input
-                      type="email" required placeholder="john@company.com"
-                      value={form.email}
-                      onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                      style={inputStyle}
-                      onFocus={e => (e.target.style.borderColor = 'rgba(99,102,241,0.5)')}
-                      onBlur={e => (e.target.style.borderColor = 'var(--border)')}
-                    />
-                  </div>
+              <form
+                action="/api/contact"
+                method="POST"
+                onSubmit={handleSubmit}
+                style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+              >
+                <div style={{ marginBottom: '0.35rem' }}>
+                  <h3 style={{
+                    fontFamily: 'var(--font-display)', fontWeight: 700,
+                    fontSize: '1.25rem', color: 'var(--text)', margin: '0 0 0.35rem',
+                  }}>Send a Message</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: 0 }}>
+                    Share a few details and I&apos;ll get back to you.
+                  </p>
                 </div>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 6 }}>
-                    Subject *
-                  </label>
+                <Field label="Email Address">
                   <input
-                    type="text" required placeholder="Software Engineering Internship Opportunity"
-                    value={form.subject}
-                    onChange={e => setForm(f => ({ ...f, subject: e.target.value }))}
+                    type="email" name="email" required autoComplete="email"
+                    placeholder="you@example.com" value={form.email}
+                    onChange={event => setForm(current => ({ ...current, email: event.target.value }))}
                     style={inputStyle}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(99,102,241,0.5)')}
-                    onBlur={e => (e.target.style.borderColor = 'var(--border)')}
                   />
-                </div>
+                </Field>
 
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 6 }}>
-                    Message *
-                  </label>
+                <Field label="Message">
                   <textarea
-                    required rows={5} placeholder="Hi Alex, I came across your portfolio and would love to discuss..."
+                    name="message" required rows={7}
+                    placeholder="Hi Senuth, I came across your portfolio and would like to discuss..."
                     value={form.message}
-                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                    style={{ ...inputStyle, resize: 'vertical', minHeight: 120 }}
-                    onFocus={e => (e.target.style.borderColor = 'rgba(99,102,241,0.5)')}
-                    onBlur={e => (e.target.style.borderColor = 'var(--border)')}
+                    onChange={event => setForm(current => ({ ...current, message: event.target.value }))}
+                    style={{ ...inputStyle, resize: 'vertical', minHeight: 170 }}
                   />
-                </div>
+                </Field>
+
+                <input
+                  type="text" name="_honey" value={form.website}
+                  onChange={event => setForm(current => ({ ...current, website: event.target.value }))}
+                  tabIndex={-1} autoComplete="off" aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+                />
+                {error && (
+                  <p role="alert" style={{
+                    margin: 0, padding: '0.75rem 0.9rem', borderRadius: 10,
+                    color: '#fca5a5', background: 'rgba(239,68,68,0.08)',
+                    border: '1px solid rgba(239,68,68,0.18)', fontSize: '0.74rem', lineHeight: 1.5,
+                  }}>{error}</p>
+                )}
 
                 <button type="submit" disabled={loading} className="btn-gradient" style={{
-                  padding: '0.9rem',
-                  borderRadius: 12, border: 'none',
+                  padding: '0.9rem', borderRadius: 12, border: 'none',
                   color: '#fff', cursor: loading ? 'wait' : 'pointer',
-                  fontSize: '0.95rem', fontWeight: 600,
+                  fontSize: '0.9rem', fontWeight: 600,
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                   boxShadow: '0 8px 24px rgba(99,102,241,0.3)',
-                  fontFamily: 'var(--font-sans)',
-                  position: 'relative', zIndex: 1,
+                  fontFamily: 'var(--font-sans)', position: 'relative', zIndex: 1,
                   opacity: loading ? 0.8 : 1,
-                  transition: 'all 0.3s',
                 }}>
                   {loading ? (
                     <>
-                      <div style={{
-                        width: 16, height: 16, borderRadius: '50%',
-                        border: '2px solid rgba(255,255,255,0.3)',
-                        borderTopColor: '#fff',
+                      <span style={{
+                        width: 15, height: 15, borderRadius: '50%',
+                        border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff',
                         animation: 'spin-slow 0.8s linear infinite',
                       }} />
                       Sending...
@@ -243,5 +257,16 @@ export default function Contact() {
         </div>
       </div>
     </section>
+  )
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label style={{ display: 'block' }}>
+      <span style={{ display: 'block', fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: 6 }}>
+        {label} *
+      </span>
+      {children}
+    </label>
   )
 }

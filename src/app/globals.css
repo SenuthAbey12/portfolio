@@ -202,6 +202,57 @@ body {
   box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
 }
 
+.skills-explorer-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 290px) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.skills-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.skills-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.skill-explorer-featured {
+  grid-column: span 2;
+}
+
+.skills-panel-enter {
+  animation: skillsPanelIn 0.35s ease both;
+}
+
+@keyframes skillsPanelIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .skills-explorer-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-category-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skills-tile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-explorer-featured {
+    grid-column: span 1;
+  }
+}
+
 /* Project card hover */
 .project-card:hover {
   transform: translateY(-6px);
